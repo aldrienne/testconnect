@@ -109,8 +109,8 @@ class Window:
         try:
             x = requests.get(url, verify=False)
             if '-2' in x.text:
-                self.connection_status_label['text'] = 'CGI: OK'
-                self.connection_status_label['fg'] = '#5cb85c'
+                self.cgi_status_label['text'] = 'CGI: OK'
+                self.cgi_status_label['fg'] = '#5cb85c'
         except:
             self.cgi_status_label['text'] = 'CGI: ERROR!'
             self.cgi_status_label['fg'] = '#d9534f'

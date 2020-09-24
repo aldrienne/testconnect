@@ -1,3 +1,7 @@
 venv/
 .idea/
 ofcscan.ini
+AgentToServer.spec
+dist/
+build/
+__pycache__/
