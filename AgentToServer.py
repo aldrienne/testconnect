@@ -31,6 +31,7 @@ class Window:
         self.server_ip_frame.pack(fill=tk.X, padx=80, pady=5)
         self.server_ip_label.pack(side=tk.LEFT)
         self.server_ip_entry.pack(side=tk.RIGHT)
+        self.server_ip_entry.insert(0, self.server_ip)
 
         # Frame for Port
         self.port_frame = tk.Frame(master=master, width=400, height=50)
@@ -76,8 +77,20 @@ class Window:
         self.smart_status_label = tk.Label(master=self.smart_scan_frame, text='CONNECTION: ')
         self.smart_status_label.pack()
 
-        self.server_ip_entry.insert(0, self.server_ip)
-        self.connection_status_label.pack()
+        #Agent Upgrade Frame
+        self.agent_upgrade_frame = tk.Frame(master=master, width=400, height=50)
+        self.agent_upgrade_frame.pack(pady=15)
+        self.agent_upgrade_title = tk.Label(master=self.smart_scan_frame,text="Agent Upgrade",font=('Helvetica neue', 10, 'bold'),fg='#A9A9A9')
+        self.agent_upgrade_title.pack()
+
+        self.smart_server_label = tk.Label(master=self.smart_scan_frame,text='SMART SCAN SERVER: ')
+        self.smart_server_label.pack()
+        self.smart_status_label = tk.Label(master=self.smart_scan_frame, text='CONNECTION: ')
+        self.smart_status_label.pack()
+
+
+
+
 
 
     def testConnection(self):

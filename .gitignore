@@ -5,3 +5,4 @@ AgentToServer.spec
 dist/
 build/
 __pycache__/
+icon.ico
