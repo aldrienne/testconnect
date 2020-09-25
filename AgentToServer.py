@@ -45,15 +45,16 @@ class Window:
         # Frame for Butttons
         self.list_buttons_frames = tk.Frame(master=master, width=400, height=50)
         self.testButton = tk.Button(master=self.list_buttons_frames, text="Test Connection",
-                                    command=self.testConnection, width=13)
+                                    command=self.testConnection, width=15)
         self.testSmartScan = tk.Button(master=self.list_buttons_frames, text="Test SmartScan",
-                                       command=self.testSmartScan, width=13)
-        #self.testPorts_button = tk.Button(master=self.list_buttons_frames, text="Test Ports", command=self.testPorts,
-        #                                 width=13)
+                                       command=self.testSmartScan, width=15)
+        self.testUpgrade = tk.Button(master=self.list_buttons_frames, text="Test Agent Upgrade",
+                                    command=self.agent_upgrade, width=15)
         self.list_buttons_frames.pack(pady=10)
         self.testButton.pack()
         self.testSmartScan.pack()
-        #self.testPorts_button.pack()
+        self.testUpgrade.pack()
+
 
         # Test Connection Frame
         self.connection_status_frame = tk.Frame(master=master, width=400, height=50)
@@ -80,13 +81,44 @@ class Window:
         #Agent Upgrade Frame
         self.agent_upgrade_frame = tk.Frame(master=master, width=400, height=50)
         self.agent_upgrade_frame.pack(pady=15)
-        self.agent_upgrade_title = tk.Label(master=self.smart_scan_frame,text="Agent Upgrade",font=('Helvetica neue', 10, 'bold'),fg='#A9A9A9')
+        self.agent_upgrade_title = tk.Label(master=self.agent_upgrade_frame,text="Agent Upgrade",font=('Helvetica neue', 10, 'bold'),fg='#A9A9A9')
         self.agent_upgrade_title.pack()
+        self.program_upgrade_label = tk.Label(master=self.agent_upgrade_frame,text='PROGRAM UPGRADE: ')
+        self.program_upgrade_label.pack()
+        self.engine_upgrade_label = tk.Label(master=self.agent_upgrade_frame, text='ENGINE UPGRADE: ')
+        self.engine_upgrade_label.pack()
+        self.get_hotfix_from = tk.Label(master=self.agent_upgrade_frame, text="UPGRADE FROM:")
+        self.get_hotfix_from.pack()
 
-        self.smart_server_label = tk.Label(master=self.smart_scan_frame,text='SMART SCAN SERVER: ')
-        self.smart_server_label.pack()
-        self.smart_status_label = tk.Label(master=self.smart_scan_frame, text='CONNECTION: ')
-        self.smart_status_label.pack()
+
+    def agent_upgrade(self):
+        """Function to determine configurations regarding Agent Upgrade"""
+        akey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                              "SOFTWARE\\Wow6432Node\\TrendMicro\\PC-cillinNtCorp\\CurrentVersion\Misc.")
+        agent_upgrade = str(winreg.QueryValueEx(akey, 'NoProgramUpgrade')[0])
+        engine_upgrade = str(winreg.QueryValueEx(akey, 'NoEngineUpgrade')[0])
+        upgrade_from = str(winreg.QueryValueEx(akey, 'RelayClientGetHotfixFrom')[0])
+        winreg.CloseKey(akey)
+
+        print(agent_upgrade)
+        print(engine_upgrade)
+        print(upgrade_from)
+
+        self.get_hotfix_from['text'] = 'UPGRADE FROM: ' + upgrade_from
+
+        if agent_upgrade == '1':
+            self.program_upgrade_label['text'] = 'PROGRAM UPGRADE: OK'
+            self.program_upgrade_label['fg'] = '#5cb85c'
+        elif agent_upgrade == '0':
+            self.program_upgrade_label['text'] = 'PROGRAM UPGRADE: DISABLED!'
+            self.program_upgrade_label['fg'] = '#d9534f'
+
+        if engine_upgrade == '1':
+            self.engine_upgrade_label['text'] = 'ENGINE UPGRADE: OK'
+            self.engine_upgrade_label['fg'] = '#5cb85c'
+        elif engine_upgrade == '0':
+            self.engine_upgrade_label['text'] ='ENGINE UPGRADE: DISABLED!'
+            self.engine_upgrade_label['fg'] = '#d9534f'
 
 
 
