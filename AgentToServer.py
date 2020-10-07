@@ -106,17 +106,17 @@ class Window:
 
         self.get_hotfix_from['text'] = 'UPGRADE FROM: ' + upgrade_from
 
-        if agent_upgrade == '1':
+        if agent_upgrade == '0':
             self.program_upgrade_label['text'] = 'PROGRAM UPGRADE: OK'
             self.program_upgrade_label['fg'] = '#5cb85c'
-        elif agent_upgrade == '0':
+        elif agent_upgrade == '1':
             self.program_upgrade_label['text'] = 'PROGRAM UPGRADE: DISABLED!'
             self.program_upgrade_label['fg'] = '#d9534f'
 
-        if engine_upgrade == '1':
+        if engine_upgrade == '0':
             self.engine_upgrade_label['text'] = 'ENGINE UPGRADE: OK'
             self.engine_upgrade_label['fg'] = '#5cb85c'
-        elif engine_upgrade == '0':
+        elif engine_upgrade == '1':
             self.engine_upgrade_label['text'] ='ENGINE UPGRADE: DISABLED!'
             self.engine_upgrade_label['fg'] = '#d9534f'
 
